@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Пароль — генератор надёжных паролей</title>
+  <meta name="description" content="Генератор надёжных паролей и фраз-паролей. Оценка стойкости и времени взлома. Всё считается в браузере.">
+  <meta name="theme-color" content="#0b0a1a">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <span class="lock" aria-hidden="true">🔐</span>
+      <h1>Пароль</h1>
+      <p>Надёжные пароли за секунду. Генерируются прямо в браузере и никуда не отправляются.</p>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab is-active" data-mode="chars">Пароль</button>
+      <button class="tab" data-mode="phrase">Фраза-пароль</button>
+    </nav>
+
+    <section class="output">
+      <div class="pw" id="pw" aria-live="polite"></div>
+      <div class="output__btns">
+        <button class="icon-btn" id="regen" aria-label="Сгенерировать заново">↻</button>
+        <button class="copy" id="copy">Копировать</button>
+      </div>
+      <div class="meter"><i id="meterBar"></i></div>
+      <div class="verdict"><b id="verdict"></b><span id="crack"></span></div>
+    </section>
+
+    <section class="card" id="charsOpts">
+      <label class="slider">
+        <span>Длина <b id="lenLabel">16</b></span>
+        <input type="range" id="len" min="6" max="64" value="16">
+      </label>
+      <div class="toggles">
+        <label class="toggle"><input type="checkbox" id="upper" checked><span>A–Z</span></label>
+        <label class="toggle"><input type="checkbox" id="lower" checked><span>a–z</span></label>
+        <label class="toggle"><input type="checkbox" id="digits" checked><span>0–9</span></label>
+        <label class="toggle"><input type="checkbox" id="symbols" checked><span>!@#$</span></label>
+      </div>
+      <label class="check"><input type="checkbox" id="noAmbig"> Без похожих символов (I, l, 1, O, 0)</label>
+    </section>
+
+    <section class="card" id="phraseOpts" hidden>
+      <label class="slider">
+        <span>Слов <b id="wordsLabel">6</b></span>
+        <input type="range" id="words" min="4" max="10" value="6">
+      </label>
+      <div class="row">
+        <label class="select-wrap">Разделитель
+          <select id="sep">
+            <option value="-">дефис -</option>
+            <option value="_">подчёркивание _</option>
+            <option value=".">точка .</option>
+            <option value=" ">пробел</option>
+          </select>
+        </label>
+      </div>
+      <label class="check"><input type="checkbox" id="caps" checked> С заглавной буквы</label>
+      <label class="check"><input type="checkbox" id="addNum" checked> Добавить число</label>
+    </section>
+
+    <section class="card">
+      <h2>Проверить свой пароль</h2>
+      <input type="password" id="check" class="input" placeholder="Введите пароль" autocomplete="off" spellcheck="false" aria-label="Пароль для проверки">
+      <div class="meter meter--sm"><i id="checkBar"></i></div>
+      <p class="check-result" id="checkResult">Пароль проверяется только на этом устройстве.</p>
+    </section>
+
+    <section class="card tips">
+      <h2>Как не потерять аккаунт</h2>
+      <ul>
+        <li>Свой пароль для каждого сайта — утечка одного не откроет остальные.</li>
+        <li>Храните пароли в менеджере паролей, а не в заметках.</li>
+        <li>Включите двухфакторную аутентификацию там, где она есть.</li>
+      </ul>
+    </section>
+  </main>
+  <div class="toast" id="toast" hidden>Скопировано ✓</div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
